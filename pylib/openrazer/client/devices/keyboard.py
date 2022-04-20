@@ -8,22 +8,6 @@ from openrazer.client.devices import RazerDevice as __RazerDevice, BaseDeviceFac
 
 
 class RazerKeyboard(__RazerDevice):
-    def __init__(self, serial, vid_pid=None, daemon_dbus=None):
-        super(RazerKeyboard, self).__init__(serial, vid_pid=vid_pid, daemon_dbus=daemon_dbus)
-
-        # Capabilities
-        self._capabilities['game_mode_led'] = self._has_feature('razer.device.led.gamemode')
-        self._capabilities['macro_mode_led'] = self._has_feature('razer.device.led.macromode', 'setMacroMode')
-        self._capabilities['macro_mode_led_effect'] = self._has_feature('razer.device.led.macromode', 'setMacroEffect')
-        self._capabilities['macro_mode_modifier'] = self._has_feature('razer.device.macro', 'setModeModifier')
-
-        # Setup base stuff if need be
-        if self.has('game_mode_led'):
-            self._dbus_interfaces['game_mode_led'] = _dbus.Interface(self._dbus, "razer.device.led.gamemode")
-
-        if self.has('macro_mode_led'):
-            self._dbus_interfaces['macro_mode_led'] = _dbus.Interface(self._dbus, "razer.device.led.macromode")
-
     @property
     def game_mode_led(self) -> bool:
         """
@@ -103,6 +87,78 @@ class RazerKeyboard(__RazerDevice):
         """
         if self.has('macro_mode_led_effect') and value in (MACRO_LED_STATIC, MACRO_LED_BLINK):
             self._dbus_interfaces['macro_mode_led'].setMacroEffect(value)
+
+    @property
+    def profile_led_red(self) -> bool:
+        """
+         Get red profile LED state
+
+         :return: Red profile LED state
+         :rtype: bool
+         """
+        if self.has('lighting_profile_led_red'):
+            return bool(self._dbus_interfaces['profile_led'].getRedLED())
+        else:
+            return False
+
+    @profile_led_red.setter
+    def profile_led_red(self, enable: bool):
+        """
+        Set red profile LED state
+
+        :param enable: Status of red profile LED
+        :type enable: bool
+        """
+        if self.has('lighting_profile_led_red'):
+            self._dbus_interfaces['profile_led'].setRedLED(enable)
+
+    @property
+    def profile_led_green(self) -> bool:
+        """
+        Get green profile LED state
+
+        :return: Green profile LED state
+        :rtype: bool
+        """
+        if self.has('lighting_profile_led_green'):
+            return bool(self._dbus_interfaces['profile_led'].getGreenLED())
+        else:
+            return False
+
+    @profile_led_green.setter
+    def profile_led_green(self, enable: bool):
+        """
+        Set green profile LED state
+
+        :param enable: Status of green profile LED
+        :type enable: bool
+        """
+        if self.has('lighting_profile_led_green'):
+            self._dbus_interfaces['profile_led'].setGreenLED(enable)
+
+    @property
+    def profile_led_blue(self) -> bool:
+        """
+        Get blue profile LED state
+
+        :return: Blue profile LED state
+        :rtype: bool
+        """
+        if self.has('lighting_profile_led_blue'):
+            return bool(self._dbus_interfaces['profile_led'].getBlueLED())
+        else:
+            return False
+
+    @profile_led_blue.setter
+    def profile_led_blue(self, enable: bool):
+        """
+        Set blue profile LED state
+
+        :param enable: Status of blue profile LED
+        :type enable: bool
+        """
+        if self.has('lighting_profile_led_blue'):
+            self._dbus_interfaces['profile_led'].setBlueLED(enable)
 
 
 DEVICE_PID_MAP = {
