@@ -4,6 +4,7 @@
  */
 
 #include "razerchromacommon.h"
+#include <linux/kernel.h>
 
 
 static unsigned char orochi2011_led[]  = { 0x01, 0x00, 0x00, 0x06, 0x48, 0x00, 0x00, 0x00, 0x01, 0xFF, 0x03, 0x05, 0x06, 0x06, 0x10, 0x10, 0x10, 0x10, 0x24, 0x24, 0x4c, 0x4c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x02, 0x02, 0x01, 0x01, 0x03, 0x03, 0x04, 0x01, 0x04, 0x04, 0x01, 0x01, 0x05, 0x05, 0x01, 0x01, 0x06, 0x31, 0x88, 0x00, 0x07, 0x31, 0x87, 0x00, 0x08, 0x08, 0x01, 0x01, 0x09, 0x09, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x44, 0x01 };
@@ -479,7 +480,7 @@ struct razer_report razer_chroma_standard_matrix_set_custom_frame(unsigned char 
     size_t row_length = (size_t) (((stop_col + 1) - start_col) * 3);
 
     if (row_length > sizeof(report.arguments) - start_arg_offset) {
-        printk(KERN_ALERT "razerchroma: RGB data too long\n");
+        printf("razerchroma: RGB data too long\n");
         row_length = sizeof(report.arguments) - start_arg_offset;
     }
 
@@ -765,7 +766,7 @@ struct razer_report razer_chroma_extended_matrix_set_custom_frame2(unsigned char
     size_t row_length = (size_t) (((stop_col + 1) - start_col) * 3);
 
     if (row_length > sizeof(report.arguments) - start_arg_offset) {
-        printk(KERN_ALERT "razerchroma: RGB data too long\n");
+        printf("razerchroma: RGB data too long\n");
         row_length = sizeof(report.arguments) - start_arg_offset;
     }
 
@@ -969,7 +970,7 @@ struct razer_report razer_chroma_misc_one_row_set_custom_frame(unsigned char sta
     size_t row_length = (size_t) (((stop_col + 1) - start_col) * 3);
 
     if (row_length > sizeof(report.arguments) - start_arg_offset) {
-        printk(KERN_ALERT "razerchroma: RGB data too long\n");
+        printf("razerchroma: RGB data too long\n");
         row_length = sizeof(report.arguments) - start_arg_offset;
     }
 

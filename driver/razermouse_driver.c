@@ -4475,13 +4475,13 @@ static struct razer_mouse_device *find_mouse(struct hid_device *hdev)
 
     if (!m_intf)
         return NULL;
-
-    dev = device_find_child(&m_intf->dev, hid_bus_type, dev_is_on_bus);
+    dev = hid_open(hdev->driver->id_table->vendor, hdev->driver->id_table->product, NULL);
+    //dev = device_find_child(&m_intf->dev, hid_bus_type, dev_is_on_bus);
     if (!dev)
         return NULL;
 
     rdev = dev_get_drvdata(dev);
-    put_device(dev);
+    //put_device(dev);
     return rdev;
 }
 

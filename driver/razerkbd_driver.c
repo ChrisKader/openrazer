@@ -434,7 +434,7 @@ static ssize_t razer_attr_write_charge_effect(struct device *dev, struct device_
     struct razer_report report = {0};
 
     if (count != 1) {
-        printk(KERN_WARNING "razerkbd: Incorrect number of bytes for setting the charging effect\n");
+        printf(KERN_WARNING "razerkbd: Incorrect number of bytes for setting the charging effect\n");
         return -EINVAL;
     }
 
@@ -459,7 +459,7 @@ static ssize_t razer_attr_write_charge_colour(struct device *dev, struct device_
     razer_send_payload(usb_dev, &report);
 
     if (count != 3) {
-        printk(KERN_WARNING "razerkbd: Charging colour mode only accepts RGB (3byte)\n");
+        printf(KERN_WARNING "razerkbd: Charging colour mode only accepts RGB (3byte)\n");
         return -EINVAL;
     }
 
@@ -1452,7 +1452,7 @@ static ssize_t razer_attr_write_matrix_effect_reactive(struct device *dev, struc
     unsigned char speed;
 
     if (count != 4) {
-        printk(KERN_WARNING "razerkbd: Reactive only accepts Speed, RGB (4byte)\n");
+        printf(KERN_WARNING "razerkbd: Reactive only accepts Speed, RGB (4byte)\n");
         return -EINVAL;
     }
 
@@ -1582,7 +1582,7 @@ static ssize_t razer_attr_write_matrix_effect_static(struct device *dev, struct 
     case USB_DEVICE_ID_RAZER_BLADE_17_2022:
     case USB_DEVICE_ID_RAZER_BLADE_15_ADV_EARLY_2022:
         if (count != 3) {
-            printk(KERN_WARNING "razerkbd: Static mode only accepts RGB (3byte)\n");
+            printf(KERN_WARNING "razerkbd: Static mode only accepts RGB (3byte)\n");
             return -EINVAL;
         }
         report = razer_chroma_standard_matrix_effect_static(VARSTORE, BACKLIGHT_LED, (struct razer_rgb*)&buf[0]);
@@ -2916,11 +2916,13 @@ static int razer_raw_event_bitfield(struct hid_device *hdev, struct razer_kbd_de
 
                             // report key down
                             xdata[1] = cur_value;
-                            hid_report_raw_event(hdev, HID_INPUT_REPORT, xdata, sizeof(xdata), 0);
+                            hid_send_feature_report(hdev, xdata, sizeof(xdata));
+                            //hid_report_raw_event(hdev, HID_INPUT_REPORT, xdata, sizeof(xdata), 0);
 
                             // report key up
                             xdata[1] = 0x00;
-                            hid_report_raw_event(hdev, HID_INPUT_REPORT, xdata, sizeof(xdata), 0);
+                            hid_send_feature_report(hdev, xdata, sizeof(xdata));
+                            //hid_report_raw_event(hdev, HID_INPUT_REPORT, xdata, sizeof(xdata), 0);
                         }
                     }
                 }

@@ -7,6 +7,7 @@
 #define DRIVER_RAZERCHROMACOMMON_H_
 
 #include "razercommon.h"
+#include <linux/kernel.h>
 
 /*
  * Standard Device Functions
