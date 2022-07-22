@@ -1,12 +1,6 @@
+/* SPDX-License-Identifier: GPL-2.0-or-later */
 /*
  * Copyright (c) 2015 Terry Cain <terry@terrys-home.co.uk>
- */
-
-/*
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option)
- * any later version.
  */
 
 #ifndef __HID_RAZER_MOUSE_H
@@ -81,6 +75,7 @@
 #define USB_DEVICE_ID_RAZER_OROCHI_V2_BLUETOOTH 0x0095
 #define USB_DEVICE_ID_RAZER_DEATHADDER_ESSENTIAL_2021 0x0098
 #define USB_DEVICE_ID_RAZER_BASILISK_V3 0x0099
+#define USB_DEVICE_ID_RAZER_DEATHADDER_V2_X_HYPERSPEED 0x009C
 
 /* Each keyboard report has 90 bytes*/
 #define RAZER_REPORT_LEN 0x5A

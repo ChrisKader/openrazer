@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+/*
+ * Copyright (c) 2015 Terry Cain <terrys-home.co.uk>
+ */
+
 #include "razerchromacommon.h"
 
 
@@ -1469,10 +1474,3 @@ struct razer_report razer_chroma_misc_get_scroll_smart_reel(void)
 
     return report;
 }
-
-
-
-
-
-
-
